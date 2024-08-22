@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import Additem from "./views/additem/Additem";
+import Login from "./views/login/Login";
+import RecipeList from "./views/recipelist/RecipeList";
+import RecipePage from "./views/RecipePage/RecipePage";
+import Resigration from "./views/regitsration/Resigration";
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Update from "./views/update/Update";
 
 function App() {
+  const [Active, setActive] = useState(false);
+
+  useEffect(() => {
+    const isActive = localStorage.getItem("Active");
+    setActive(isActive);
+  }, [Active]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/registration" element={<Resigration />} />{" "}
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<RecipeList />} />
+        <Route path="/recipepage" element={<RecipePage />} />
+        <Route path="/Additem" element={<Additem />} />
+        <Route path="/update" element={<Update />} />
+      </Routes>
+    </Router>
   );
 }
 
